@@ -1,0 +1,37 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.section {
+  padding: 2em 3em;
+}
+
+.form__section {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+label {
+  display: block;
+  margin-top: 0.75em;
+}
+
+.btn {
+  border: unset;
+  background: royalblue;
+  color: #fff;
+  padding: 1em 2em;
+  cursor: pointer;
+}
