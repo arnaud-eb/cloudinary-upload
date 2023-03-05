@@ -38,17 +38,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', async (req, res) => {
-  let uploadFile;
-  // let uploadPath;
-
   if (!req.files || Object.keys(req.files).length === 0) {
     res.status(400).send('No files were uploaded.');
     return;
   }
 
-  // console.log('req.files >>>', req.files);
+  const uploadFile = req.files.uploadFile;
 
-  uploadFile = req.files.uploadFile;
   const result = await cloudinary.uploader.upload(uploadFile.tempFilePath, {
     public_id: uploadFile.name,
     resource_type: 'auto',
@@ -57,14 +53,14 @@ app.post('/upload', async (req, res) => {
     unique_filename: false,
   });
 
-  uploadFile.mv(result, function (err) {
-    // if (err) {
-    //   return res.status(500).send(err);
-    // }
-
-    // res.send('File successfully uploaded', uploadFile.name);
-    console.log(result.url);
-  });
+  if (result.url) {
+    res.render('photo', {
+      img: result.url,
+      name: uploadFile.name,
+    });
+  } else {
+    res.render('/');
+  }
 });
 
 app.listen(PORT, () => {
