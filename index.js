@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
@@ -9,7 +10,11 @@ const PORT = process.env.PORT || 4000;
 
 const app = express();
 
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
 // middleware
+app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(
   fileUpload({
@@ -27,23 +32,35 @@ cloudinary.config({
 });
 
 app.get('/', (req, res) => {
-  res.send('it is working!!!');
+  res.render('index', {
+    title: 'Uploading images to Cloudinary Console',
+  });
 });
 
-app.post('/', async (req, res) => {
+app.post('/upload', async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.');
+    res.status(400).send('No files were uploaded.');
+    return;
   }
 
-  const file = req.files.image;
+  const uploadFile = req.files.uploadFile;
 
-  const result = await cloudinary.uploader.upload(file.tempFilePath, {
-    public_id: file.name,
+  const result = await cloudinary.uploader.upload(uploadFile.tempFilePath, {
+    public_id: uploadFile.name,
     resource_type: 'auto',
     folder: 'uploaded',
+    use_filename: true,
+    unique_filename: false,
   });
-  console.log(file);
-  res.json(result);
+
+  if (result.url) {
+    res.render('photo', {
+      img: result.url,
+      name: uploadFile.name,
+    });
+  } else {
+    res.render('/');
+  }
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,63 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.section {
+  padding: 2em 3em;
+}
+
+.form__section {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+label {
+  display: block;
+  margin-top: 0.75em;
+}
+
+.btn {
+  border: unset;
+  background: royalblue;
+  color: #fff;
+  padding: 1em 2em;
+  cursor: pointer;
+}
+
+.img-upload {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img-upload h2 {
+  margin-top: 1em;
+}
+
+.img-upload img {
+  max-width: 75rem;
+  width: 85%;
+  margin-inline: auto;
+  padding: 2em 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
