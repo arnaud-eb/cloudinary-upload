@@ -39,7 +39,9 @@ app.get('/', (req, res) => {
 
 app.post('/upload', async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
-    res.status(400).send('No files were uploaded.');
+    res.status(400).json({
+      msg: 'No files were uploaded.',
+    });
     return;
   }
 
@@ -56,7 +58,7 @@ app.post('/upload', async (req, res) => {
   if (result.url) {
     res.render('photo', {
       img: result.url,
-      name: uploadFile.name,
+      name: uploadFile.name.replace(/.jpeg|.jpg|.png|.mp4|.mov|.mp3/gi, ''),
     });
   } else {
     res.render('/');
