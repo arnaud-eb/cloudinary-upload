@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('./config');
 
 // dotenv
 require('dotenv').config();
@@ -23,14 +23,6 @@ app.use(
   })
 );
 
-// cloudinary configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
-
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Uploading images to Cloudinary Console',
@@ -40,7 +32,7 @@ app.get('/', (req, res) => {
 app.post('/upload', async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     res.status(400).json({
-      msg: 'No files were uploaded.',
+      msg: 'No files were uploaded. Try uploading an image',
     });
     return;
   }
@@ -56,12 +48,13 @@ app.post('/upload', async (req, res) => {
   });
 
   if (result.url) {
-    res.render('photo', {
+    res.render('media', {
       img: result.url,
-      name: uploadFile.name.replace(/.jpeg|.jpg|.png|.mp4|.mov|.mp3/gi, ''),
+      name: uploadFile.name.replace(/.jpeg|.jpg|.png|.webp/gi, ''),
     });
-  } else {
-    res.render('/');
+  }
+  else {
+    res.render('/upload');
   }
 });
 
