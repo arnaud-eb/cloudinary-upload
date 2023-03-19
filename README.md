@@ -3,7 +3,7 @@
 ## Technologies
 
 - Node / Express
-- HBS
+- Template Engines (HBS)
 - Cloudinary
 - CSS
 - JavaScript
