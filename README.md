@@ -4,6 +4,8 @@ This app has the same principle with any other image app uploader and sends any 
 
 Sign up for a [free](https://cloudinary.com/users/register_free) Cloudinary account to begin.
 
+This project was part of the [Cloudinary CloudCreate: Tech Products Hackathon](https://cloudinary.com/blog/cloudinary-cloudcreate-tech-products-hackathon) 2023.
+
 ## Demo
 
 ![working demo](https://user-images.githubusercontent.com/124436946/227532371-5444f474-5d1e-40dd-a037-5ea767052921.gif)
